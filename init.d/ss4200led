@@ -1,0 +1,122 @@
+#!/bin/sh
+#
+# Script to set ss4200 led
+#
+# chkconfig: 345 99 99
+# description: set ss4200 led
+# 
+# /etc/init.d/ss4200led
+#
+### BEGIN INIT INFO
+# Provides: ss4200led
+# Required-Start:
+# Required-Stop:
+# Default-Start: 3 4 5
+# Default-Stop: 0 1 2 6
+# Description: set ss4200 led
+### END INIT INFO
+
+
+. /etc/init.d/functions
+
+#ledpath="/sys/bus/pci/drivers/leds_ss4200/0000:00:1f.0/leds"
+ledpath="/sys/class/leds"
+
+# brightness(led off/on): 0 - 255
+# 0 - 126: off
+# 127 - 255: on
+
+# blink: 0:off 1:on
+
+
+start() {
+    echo "ss4200 setting up leds"
+
+    echo 0 > $ledpath/power:amber:power/blink
+    echo 0 > $ledpath/power:amber:power/brightness
+    echo 0 > $ledpath/power:blue:power/blink
+    echo 255 > $ledpath/power:blue:power/brightness
+
+    echo 0 > $ledpath/hdd1:amber:sata/blink
+    echo 0 > $ledpath/hdd1:amber:sata/brightness
+    echo 0 > $ledpath/hdd1:blue:sata/blink
+    echo 255 > $ledpath/hdd1:blue:sata/brightness
+
+    echo 0 > $ledpath/hdd2:amber:sata/blink
+    echo 0 > $ledpath/hdd2:amber:sata/brightness
+    echo 0 > $ledpath/hdd2:blue:sata/blink
+    echo 255 > $ledpath/hdd2:blue:sata/brightness
+
+    echo 0 > $ledpath/hdd3:amber:sata/blink
+    echo 0 > $ledpath/hdd3:amber:sata/brightness
+    echo 0 > $ledpath/hdd3:blue:sata/blink
+    echo 255 > $ledpath/hdd3:blue:sata/brightness
+
+    echo 0 > $ledpath/hdd4:amber:sata/blink
+    echo 0 > $ledpath/hdd4:amber:sata/brightness
+    echo 0 > $ledpath/hdd4:blue:sata/blink
+    echo 255 > $ledpath/hdd4:blue:sata/brightness
+
+    echo "ss4200 setting up led brightness"
+    /usr/local/bin/ss4200bright 10
+
+    sleep 1
+
+    echo "ss4200 loaded smbus hwmon module: lm85"
+    modprobe lm85
+}
+
+stop() {
+    echo "ss4200 shutdown leds"
+
+    echo "ss4200 unload smbus hwmod module: lm85"
+    rmmod lm85
+
+    sleep 2
+
+    echo "ss4200 setting up led brightness"
+    /usr/local/bin/ss4200bright 100
+
+    echo 1   > $ledpath/power:amber:power/blink
+    echo 255 > $ledpath/power:amber:power/brightness
+    echo 0   > $ledpath/power:blue:power/blink
+    echo 0   > $ledpath/power:blue:power/brightness
+
+    echo 1   > $ledpath/hdd1:amber:sata/blink
+    echo 255 > $ledpath/hdd1:amber:sata/brightness
+    echo 0   > $ledpath/hdd1:blue:sata/blink
+    echo 0   > $ledpath/hdd1:blue:sata/brightness
+
+    echo 1   > $ledpath/hdd2:amber:sata/blink
+    echo 255 > $ledpath/hdd2:amber:sata/brightness
+    echo 0   > $ledpath/hdd2:blue:sata/blink
+    echo 0   > $ledpath/hdd2:blue:sata/brightness
+
+    echo 1   > $ledpath/hdd3:amber:sata/blink
+    echo 255 > $ledpath/hdd3:amber:sata/brightness
+    echo 0   > $ledpath/hdd3:blue:sata/blink
+    echo 0   > $ledpath/hdd3:blue:sata/brightness
+
+    echo 1   > $ledpath/hdd4:amber:sata/blink
+    echo 255 > $ledpath/hdd4:amber:sata/brightness
+    echo 0   > $ledpath/hdd4:blue:sata/blink
+    echo 0   > $ledpath/hdd4:blue:sata/brightness
+
+}
+
+RetCode=0
+
+case "$1" in
+    start)
+        $1
+        RetCode=0
+        ;;
+    stop)
+        $1
+        RetCode=3
+        ;;
+    *)
+    echo "Usage: $0 {start|stop}"
+
+esac
+exit $RetCode
