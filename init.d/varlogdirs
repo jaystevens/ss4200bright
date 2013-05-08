@@ -1,0 +1,86 @@
+#!/bin/sh
+#
+# Script to build folders inside /var/log
+#
+# chkconfig: 345 2 2
+# description: build /var/log folders
+# 
+# /etc/init.d/varlogdirs
+#
+### BEGIN INIT INFO
+# Provides: varlogdirs
+# Required-Start:
+# Required-Stop: syslog
+# Default-Start: 3 4 5
+# Default-Stop: 0 1 2 6
+# Description: build /var/log folders
+### END INIT INFO
+
+
+. /etc/init.d/functions
+
+start() {
+    if [ ! -d "/var/log/anaconda" ]; then
+        mkdir -m=0755 /var/log/anaconda
+    fi
+
+    if [ ! -d "/var/log/audit" ]; then
+        mkdir -m=0750 /var/log/audit
+    fi
+
+    if [ ! -d "/var/log/chrony" ]; then
+        mkdir -m=0755 /var/log/chrony
+    fi
+
+    if [ ! -d "/var/log/iptraf-ng" ]; then
+        mkdir -m=0755 /var/log/iptraf-ng
+    fi
+
+    if [ ! -d "/var/log/mail" ]; then
+        mkdir -m=0755 /var/log/mail
+    fi
+
+    if [ ! -d "/var/log/ppp" ]; then
+        mkdir -m=0700 /var/log/ppp
+    fi
+
+    if [ ! -d "/var/log/prelink" ]; then
+        mkdir -m=0755 /var/log/prelink
+    fi
+
+    if [ ! -d "/var/log/sa" ]; then
+        mkdir -m=0755 /var/log/sa
+    fi
+
+    if [ ! -d "/var/log/samba" ]; then
+        mkdir -m=0700 /var/log/samba
+    fi
+    if [ ! -d "/var/log/samba/cores" ]; then
+        mkdir -m=0700 /var/log/samba/cores
+    fi
+    if [ ! -d "/var/log/samba/old" ]; then
+        mkdir -m=0700 /var/log/samba/old
+    fi
+
+    if [ ! -d "/var/log/sssd" ]; then
+        mkdir -m=0750 /var/log/sssd
+    fi
+}
+
+stop() {
+    rsync -arh /var/log/ /var/.log/
+}
+
+
+case "$1" in
+    start)
+        $1
+        ;;
+    stop)
+        $1
+        ;;
+    *)
+    echo "Usage: $0 {start|stop}"
+
+esac
+exit 0
