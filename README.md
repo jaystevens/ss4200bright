@@ -3,8 +3,10 @@ ss4200bright (linux)
 
 Intel ss4200 brightness tool
 
-Usage: ss4200bright <number 0-100>
+Usage: ss4200bright <number 0-100>  
   
+does not work if the `lm85` kernel hwmon module is loaded and using the i2c device.
+if you are rolling your own kernel, make sure `lm85` is a Module.
   
   
 ---
