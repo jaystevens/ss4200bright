@@ -89,7 +89,7 @@ void ledPowerLevelSet( unsigned int ulPowerLevel )
         smbusFd = open( SMBUS_DEV, O_RDWR );
         if( -1 == smbusFd )
         {
-            perror( "smbus failed to open" );
+            perror( "smbus failed to open, is i2c-dev module loaded?" );
             return;
         }
         
