@@ -1,0 +1,58 @@
+#!/bin/sh
+#
+# Script to set ss4200 hdparm
+#
+# chkconfig: 345 99 99
+# description: ss4200 hdparm
+# 
+# /etc/init.d/ss4200led
+#
+### BEGIN INIT INFO
+# Provides: ss4200hdparm
+# Required-Start:
+# Required-Stop:
+# Default-Start: 3 4 5
+# Default-Stop: 0 1 2 6
+# Description: ss4200 hdparm
+### END INIT INFO
+
+
+. /etc/init.d/functions
+
+
+start() {
+    echo "ss4200 hdparm disable APM"
+
+    hdparm -B 255 /dev/sda
+    hdparm -B 255 /dev/sdb
+    hdparm -B 255 /dev/sdc
+    hdparm -B 255 /dev/sdd
+
+    echo "ss4200 hdparm disable spin down"
+
+    hdparm -S 0 /dev/sda
+    hdparm -S 0 /dev/sdb
+    hdparm -S 0 /dev/sdc
+    hdparm -S 0 /dev/sdd
+}
+
+stop() {
+    echo "ss4200 hdparm stop"
+}
+
+RetCode=0
+
+case "$1" in
+    start)
+        $1
+        RetCode=0
+        ;;
+    stop)
+        $1
+        RetCode=3
+        ;;
+    *)
+    echo "Usage: $0 {start|stop}"
+
+esac
+exit $RetCode

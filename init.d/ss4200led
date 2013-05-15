@@ -3,7 +3,7 @@
 # Script to set ss4200 led
 #
 # chkconfig: 345 99 99
-# description: set ss4200 led
+# description: ss4200 led
 # 
 # /etc/init.d/ss4200led
 #
@@ -13,7 +13,7 @@
 # Required-Stop:
 # Default-Start: 3 4 5
 # Default-Stop: 0 1 2 6
-# Description: set ss4200 led
+# Description: ss4200 led
 ### END INIT INFO
 
 
@@ -58,7 +58,7 @@ start() {
     echo 255 > $ledpath/hdd4:blue:sata/brightness
 
     echo "ss4200 setting up led brightness"
-    /usr/local/bin/ss4200bright 10
+    /usr/local/bin/ss4200bright 2
 
     sleep 1
 

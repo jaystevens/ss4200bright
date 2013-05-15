@@ -20,6 +20,7 @@
 . /etc/init.d/functions
 
 start() {
+    # build directories
     if [ ! -d "/var/log/anaconda" ]; then
         mkdir -m=0755 /var/log/anaconda
     fi
@@ -65,6 +66,16 @@ start() {
     if [ ! -d "/var/log/sssd" ]; then
         mkdir -m=0750 /var/log/sssd
     fi
+
+    # build files
+    if [ ! -e "/var/log/lastlog" ]; then
+        touch /var/log/lastlog
+    fi
+
+    if [ ! -e "/var/log/spooler" ]; then
+        touch /var/log/spooler
+    fi
+
 }
 
 stop() {
