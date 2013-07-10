@@ -58,7 +58,7 @@ start() {
     echo 255 > $ledpath/hdd4:blue:sata/brightness
 
     echo "ss4200 setting up led brightness"
-    /usr/local/bin/ss4200bright 2
+    /usr/local/bin/ss4200bright 5
 
     sleep 1
 
@@ -75,7 +75,7 @@ stop() {
     sleep 2
 
     echo "ss4200 setting up led brightness"
-    /usr/local/bin/ss4200bright 100
+    /usr/local/bin/ss4200bright 255
 
     echo 1   > $ledpath/power:amber:power/blink
     echo 255 > $ledpath/power:amber:power/brightness
