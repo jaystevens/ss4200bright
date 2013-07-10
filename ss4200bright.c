@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
     /* if no arguments given, print usage */
     if( argc < 2 )
     {
-        printf("Usage: ss4200bright <number 0-100>\n");
+        printf("Usage: ss4200bright <number 0-255>\n");
         return;
     }
 
@@ -70,10 +70,10 @@ int main(int argc, char* argv[])
         perror("level must be >= 0");
         return;
     }
-    /* check if greater than 100 */
-    if (ulLevel > 100)
+    /* check if greater than 255 */
+    if (ulLevel > 255)
     {
-        perror("level must be <= 100");
+        perror("level must be <= 255");
         return;
     }
     
@@ -83,7 +83,7 @@ int main(int argc, char* argv[])
 
 void ledPowerLevelSet( unsigned int ulPowerLevel )
 {
-    if( ulPowerLevel >= 0 && ulPowerLevel <= 100 )
+    if( ulPowerLevel >= 0 && ulPowerLevel <= 255 )
     {
         /* open i2c smbus device */
         smbusFd = open( SMBUS_DEV, O_RDWR );
@@ -121,7 +121,7 @@ void ledPowerLevelSet( unsigned int ulPowerLevel )
         /* Set the power level on smbus */
         struct i2c_smbus_ioctl_data cmd2;
         union i2c_smbus_data cmdData2;
-        ulPowerLevel *= 2.55;      /* percent * resolution */
+        //ulPowerLevel *= 2.55;      /* percent * resolution */
         
         cmd2.read_write = I2C_SMBUS_WRITE;
         cmd2.command = PWMA_CYCLE_REG;
