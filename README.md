@@ -9,7 +9,7 @@ Does not work if the `lm85` kernel hwmon module is loaded and using the i2c devi
 If you are rolling your own kernel, make sure `lm85` is a Module.  
 Requires i2c device module.  
   
-Make sure to double check the i2c device of the ss4200 LED device.  
+Make sure to double check the i2c device of the ss4200 LED device before compiling ss4200bright.  
 On Fedora 18/19 with 3.9/3.10 i2c device is `/dev/i2c-6`  
 On Intel/EMC firmware i2c device was `/dev/i2c-0`  
   
