@@ -30,39 +30,44 @@ ledpath="/sys/class/leds"
 
 
 start() {
-    echo "ss4200 setting up leds"
+    #echo "ss4200 setting up leds"
 
-    echo 0 > $ledpath/power:amber:power/blink
-    echo 0 > $ledpath/power:amber:power/brightness
-    echo 0 > $ledpath/power:blue:power/blink
-    echo 255 > $ledpath/power:blue:power/brightness
+    #echo 0 > $ledpath/power:amber:power/blink
+    #echo 0 > $ledpath/power:amber:power/brightness
+    #echo 0 > $ledpath/power:blue:power/blink
+    #echo 255 > $ledpath/power:blue:power/brightness
 
-    echo 0 > $ledpath/hdd1:amber:sata/blink
-    echo 0 > $ledpath/hdd1:amber:sata/brightness
-    echo 0 > $ledpath/hdd1:blue:sata/blink
-    echo 255 > $ledpath/hdd1:blue:sata/brightness
+    #echo 0 > $ledpath/hdd1:amber:sata/blink
+    #echo 0 > $ledpath/hdd1:amber:sata/brightness
+    #echo 0 > $ledpath/hdd1:blue:sata/blink
+    #echo 255 > $ledpath/hdd1:blue:sata/brightness
 
-    echo 0 > $ledpath/hdd2:amber:sata/blink
-    echo 0 > $ledpath/hdd2:amber:sata/brightness
-    echo 0 > $ledpath/hdd2:blue:sata/blink
-    echo 255 > $ledpath/hdd2:blue:sata/brightness
+    #echo 0 > $ledpath/hdd2:amber:sata/blink
+    #echo 0 > $ledpath/hdd2:amber:sata/brightness
+    #echo 0 > $ledpath/hdd2:blue:sata/blink
+    #echo 255 > $ledpath/hdd2:blue:sata/brightness
 
-    echo 0 > $ledpath/hdd3:amber:sata/blink
-    echo 0 > $ledpath/hdd3:amber:sata/brightness
-    echo 0 > $ledpath/hdd3:blue:sata/blink
-    echo 255 > $ledpath/hdd3:blue:sata/brightness
+    #echo 0 > $ledpath/hdd3:amber:sata/blink
+    #echo 0 > $ledpath/hdd3:amber:sata/brightness
+    #echo 0 > $ledpath/hdd3:blue:sata/blink
+    #echo 255 > $ledpath/hdd3:blue:sata/brightness
 
-    echo 0 > $ledpath/hdd4:amber:sata/blink
-    echo 0 > $ledpath/hdd4:amber:sata/brightness
-    echo 0 > $ledpath/hdd4:blue:sata/blink
-    echo 255 > $ledpath/hdd4:blue:sata/brightness
+    #echo 0 > $ledpath/hdd4:amber:sata/blink
+    #echo 0 > $ledpath/hdd4:amber:sata/brightness
+    #echo 0 > $ledpath/hdd4:blue:sata/blink
+    #echo 255 > $ledpath/hdd4:blue:sata/brightness
+
+    echo "ss4200 unload smbus hwmod module: lm85"
+    rmmod lm85
+
+    sleep 1
 
     echo "ss4200 setting up led brightness"
     /usr/local/bin/ss4200bright 5
 
     sleep 1
 
-    echo "ss4200 loaded smbus hwmon module: lm85"
+    echo "ss4200 load smbus hwmon module: lm85"
     modprobe lm85
 }
 
@@ -77,30 +82,30 @@ stop() {
     echo "ss4200 setting up led brightness"
     /usr/local/bin/ss4200bright 255
 
-    echo 1   > $ledpath/power:amber:power/blink
-    echo 255 > $ledpath/power:amber:power/brightness
-    echo 0   > $ledpath/power:blue:power/blink
-    echo 0   > $ledpath/power:blue:power/brightness
+    #echo 1   > $ledpath/power:amber:power/blink
+    #echo 255 > $ledpath/power:amber:power/brightness
+    #echo 0   > $ledpath/power:blue:power/blink
+    #echo 0   > $ledpath/power:blue:power/brightness
 
-    echo 1   > $ledpath/hdd1:amber:sata/blink
-    echo 255 > $ledpath/hdd1:amber:sata/brightness
-    echo 0   > $ledpath/hdd1:blue:sata/blink
-    echo 0   > $ledpath/hdd1:blue:sata/brightness
+    #echo 1   > $ledpath/hdd1:amber:sata/blink
+    #echo 255 > $ledpath/hdd1:amber:sata/brightness
+    #echo 0   > $ledpath/hdd1:blue:sata/blink
+    #echo 0   > $ledpath/hdd1:blue:sata/brightness
 
-    echo 1   > $ledpath/hdd2:amber:sata/blink
-    echo 255 > $ledpath/hdd2:amber:sata/brightness
-    echo 0   > $ledpath/hdd2:blue:sata/blink
-    echo 0   > $ledpath/hdd2:blue:sata/brightness
+    #echo 1   > $ledpath/hdd2:amber:sata/blink
+    #echo 255 > $ledpath/hdd2:amber:sata/brightness
+    #echo 0   > $ledpath/hdd2:blue:sata/blink
+    #echo 0   > $ledpath/hdd2:blue:sata/brightness
 
-    echo 1   > $ledpath/hdd3:amber:sata/blink
-    echo 255 > $ledpath/hdd3:amber:sata/brightness
-    echo 0   > $ledpath/hdd3:blue:sata/blink
-    echo 0   > $ledpath/hdd3:blue:sata/brightness
+    #echo 1   > $ledpath/hdd3:amber:sata/blink
+    #echo 255 > $ledpath/hdd3:amber:sata/brightness
+    #echo 0   > $ledpath/hdd3:blue:sata/blink
+    #echo 0   > $ledpath/hdd3:blue:sata/brightness
 
-    echo 1   > $ledpath/hdd4:amber:sata/blink
-    echo 255 > $ledpath/hdd4:amber:sata/brightness
-    echo 0   > $ledpath/hdd4:blue:sata/blink
-    echo 0   > $ledpath/hdd4:blue:sata/brightness
+    #echo 1   > $ledpath/hdd4:amber:sata/blink
+    #echo 255 > $ledpath/hdd4:amber:sata/brightness
+    #echo 0   > $ledpath/hdd4:blue:sata/blink
+    #echo 0   > $ledpath/hdd4:blue:sata/brightness
 
 }
 
